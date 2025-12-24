@@ -31,6 +31,8 @@ void ULPBlink::setup() {
     rtc_gpio_init(gpio);
     rtc_gpio_set_direction(gpio, RTC_GPIO_MODE_OUTPUT_ONLY);
     rtc_gpio_set_level(gpio, 0);
+    //keep the rtc io live during deep sleep
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
 
     // Run ULP
     int delay_us = interval_ * 1000; // interval_ is in ms
@@ -74,7 +76,7 @@ void ULPBlink::dump_config() {
         ESP_LOGE(TAG, "Pin %d is not RTC-capable", pin_->get_pin());
         return;
     }
-    ESP_LOGCONFIG(TAG, "ULPBlink:");
+    ESP_LOGCONFIG(TAG, "ULPBlink-Stan:");
     ESP_LOGCONFIG(TAG, "  Interval: %u ms", interval_);
     LOG_PIN("  Pin: ", pin_);
     ESP_LOGCONFIG(TAG, "  RTC Bit is %d", rtc_bit_);
