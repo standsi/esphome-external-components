@@ -66,6 +66,8 @@ void ULP_BLINK_RUN(uint32_t us, uint32_t bit) {
     // Load and start ULP program
     size_t size = sizeof(ulp_blink) / sizeof(ulp_insn_t);
     ulp_process_macros_and_load(0, ulp_blink, &size);
+    //keep the rtc io live during deep sleep
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
     ulp_run(0);
 }
 
