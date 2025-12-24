@@ -33,6 +33,7 @@ void ULPBlink::setup() {
     rtc_gpio_set_level(gpio, 0);
     //keep the rtc io live during deep sleep
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_ON);
 
     // Run ULP
     int delay_us = interval_ * 1000; // interval_ is in ms
