@@ -76,7 +76,7 @@ void ULPBlink::dump_config() {
         ESP_LOGE(TAG, "Pin %d is not RTC-capable", pin_->get_pin());
         return;
     }
-    ESP_LOGCONFIG(TAG, "ULPBlink:");
+    ESP_LOGCONFIG(TAG, "ULPBlink-Stan:");
     ESP_LOGCONFIG(TAG, "  Interval: %u ms", interval_);
     LOG_PIN("  Pin: ", pin_);
     ESP_LOGCONFIG(TAG, "  RTC Bit is %d", rtc_bit_);
