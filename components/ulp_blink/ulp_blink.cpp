@@ -16,7 +16,7 @@ void ULP_BLINK_RUN(uint32_t us, uint32_t bit);
 void ULPBlink::setup() {
 
     // Stop any previously running ULP program
-    ulp_timer_stop();
+    //ulp_timer_stop();
 
     // Convert GPIO pin to RTC IO index
     gpio_num_t gpio = (gpio_num_t) pin_->get_pin();
