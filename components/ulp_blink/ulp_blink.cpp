@@ -1,10 +1,27 @@
 #include "esphome/core/log.h"
 #include "ulp_blink.h"
-#include "esp32/ulp.h"
 #include "driver/rtc_io.h"
 #include "soc/rtc_io_reg.h"
 #include "esphome.h"
 #include "esphome/core/gpio.h"
+
+#if defined(SOC_ULP_FSM_SUPPORTED)
+  // ESP32, ESP32-S2, ESP32-S3 with ULP-FSM enabled
+  #if __has_include("esp32/ulp.h")
+    #include "esp32/ulp.h"
+  #elif __has_include("ulp/ulp.h")
+    #include "ulp/ulp.h"
+  #else
+    #error "ULP-FSM header not found for this platform"
+  #endif
+  // ...existing ULP-FSM code...
+#elif defined(SOC_ULP_RISCV_SUPPORTED)
+  // ESP32-S2/S3 ULP-RISC-V (different API)
+  #include "ulp_riscv/ulp_riscv.h"
+  // ...ULP-RISC-V code...
+#else
+  #error "ULP not supported on this ESP32 variant"
+#endif
 
 namespace esphome {
 namespace ulp_blink {
