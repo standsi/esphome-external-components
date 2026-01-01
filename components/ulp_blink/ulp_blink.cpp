@@ -4,6 +4,7 @@
 #include "soc/rtc_io_reg.h"
 #include "esphome.h"
 #include "esphome/core/gpio.h"
+#include "esp_sleep.h"
 
 #if defined(SOC_ULP_FSM_SUPPORTED)
   // ESP32, ESP32-S2, ESP32-S3 with ULP-FSM enabled
