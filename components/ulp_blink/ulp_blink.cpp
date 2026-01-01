@@ -73,6 +73,7 @@ void ULP_BLINK_RUN(uint32_t us, uint32_t bit) {
         I_SUBI(R0, R0, 1),                      // R0 = R0 - 1, R0 = 1, R0 = 0
         I_ST(R0, R3, 0),                        // RTC_SLOW_MEM[R3(#12)] = R0
         M_BX(2),                                // GOTO M_LABEL(2)
+        I_DELAY(65000),
         M_LABEL(1),                             // M_LABEL(1)
             I_WR_REG(RTC_GPIO_OUT_REG, bit, bit, 1),  // set pin low
             I_ADDI(R0, R0, 1),                    // R0 = R0 + 1, R0 = 0, R0 = 1
