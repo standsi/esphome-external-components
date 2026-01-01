@@ -1,6 +1,6 @@
 #include "esphome/core/log.h"
 #include "ulp_blink.h"
-#include "esp32/ulp.h"
+#include "esp32s2/ulp.h"
 #include "driver/rtc_io.h"
 #include "soc/rtc_io_reg.h"
 #include "esphome.h"
