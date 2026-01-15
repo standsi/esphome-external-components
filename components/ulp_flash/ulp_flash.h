@@ -95,7 +95,7 @@ class ULPFlash : public Component, public EntityBase {
   FlashInitState init_state_{FlashInitState::FLASH_INIT_LAST};  // default is to restore from rtc
   friend ULPFlashCall;
   optional<ULPFlashRestoreState> restore_state_();
-  LazyCallbackManager<void()> state_callback_{};
+  CallbackManager<void()> state_callback_{};
   ESPPreferenceObject rtc_;
 };
 
