@@ -135,7 +135,7 @@ void ULP_FLASH_RUN(uint32_t us, uint32_t bit, FlashPulseWidth pulse_width_);
 void ULPFlash::setup() {
   // Stop any previously running ULP program
   // ulp_timer_stop();
-  delay(3000);
+  //delay(3000);
 
   esp_log_level_set(TAG, ESP_LOG_DEBUG);
   ESP_LOGD(TAG, "flash state during setup: %s", LOG_STR_ARG(flash_command_to_str(this->flash_state)));
