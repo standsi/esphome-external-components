@@ -1,10 +1,28 @@
 #include "esphome/core/log.h"
 #include "ulp_blink.h"
-#include "esp32/ulp.h"
 #include "driver/rtc_io.h"
 #include "soc/rtc_io_reg.h"
 #include "esphome.h"
 #include "esphome/core/gpio.h"
+#include "esp_sleep.h"
+
+#if defined(SOC_ULP_FSM_SUPPORTED)
+  // ESP32, ESP32-S2, ESP32-S3 with ULP-FSM enabled
+  #if __has_include("esp32/ulp.h")
+    #include "esp32/ulp.h"
+  #elif __has_include("ulp/ulp.h")
+    #include "ulp/ulp.h"
+  #else
+    #error "ULP-FSM header not found for this platform"
+  #endif
+  // ...existing ULP-FSM code...
+#elif defined(SOC_ULP_RISCV_SUPPORTED)
+  // ESP32-S2/S3 ULP-RISC-V (different API)
+  #include "ulp_riscv/ulp_riscv.h"
+  // ...ULP-RISC-V code...
+#else
+  #error "ULP not supported on this ESP32 variant"
+#endif
 
 namespace esphome {
 namespace ulp_blink {
@@ -51,12 +69,13 @@ void ULP_BLINK_RUN(uint32_t us, uint32_t bit) {
         I_MOVI(R3, 12),                         // #12 -> R3
         I_LD(R0, R3, 0),                        // R0 = RTC_SLOW_MEM[R3(#12)] 
         M_BL(1, 1),                             // GOTO M_LABEL(1) IF R0 < 1
-        I_WR_REG(RTC_GPIO_OUT_REG, bit, bit, 1),  // set pin high
+        I_WR_REG(RTC_GPIO_OUT_REG, bit, bit, 0),  // set pin high
         I_SUBI(R0, R0, 1),                      // R0 = R0 - 1, R0 = 1, R0 = 0
         I_ST(R0, R3, 0),                        // RTC_SLOW_MEM[R3(#12)] = R0
         M_BX(2),                                // GOTO M_LABEL(2)
+        I_DELAY(65000),
         M_LABEL(1),                             // M_LABEL(1)
-            I_WR_REG(RTC_GPIO_OUT_REG, bit, bit, 0),  // set pin low
+            I_WR_REG(RTC_GPIO_OUT_REG, bit, bit, 1),  // set pin low
             I_ADDI(R0, R0, 1),                    // R0 = R0 + 1, R0 = 0, R0 = 1
             I_ST(R0, R3, 0),                      // RTC_SLOW_MEM[R3(#12)] = R0
         M_LABEL(2),                             // M_LABEL(2)
