@@ -8,6 +8,10 @@
 #include "esphome/core/hal.h"
 #include "esphome/core/automation.h"
 
+// ** defines for lower power during woc
+#define MLX90393_BURST_DATA_RATE_REG 0x01
+#define MLX90393_BURST_DATA_RATE_240ms 12  // burst data rate for low power woc operation
+
 namespace esphome {
 namespace mlx90393 {
 
