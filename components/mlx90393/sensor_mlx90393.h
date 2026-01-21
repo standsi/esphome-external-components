@@ -10,8 +10,9 @@
 
 // ** defines for lower power during woc
 #define MLX90393_BURST_DATA_RATE_REG 0x01
-#define MLX90393_BURST_DATA_RATE_240ms 12  // burst data rate for low power woc operation
-#define MLX90393_BURST_DATA_RATE_320ms 16  // burst data rate for low power woc operation
+#define MLX90393_BURST_DATA_RATE_240ms 12  // ~4Hz burst data rate for low power woc operation
+#define MLX90393_BURST_DATA_RATE_320ms 16  // ~3Hz burst data rate for low power woc operation
+#define MLX90393_BURST_DATA_RATE_500ms 25  // ~2Hz burst data rate for low power woc operation
 
 namespace esphome {
 namespace mlx90393 {
