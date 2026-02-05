@@ -22,6 +22,11 @@ enum class FlashInitState : uint8_t {
   FLASH_INIT_LAST = 2,
 };
 
+enum class FlashPinInvert : uint8_t {
+  FLASH_PIN_INVERT_OFF = 0,
+  FLASH_PIN_INVERT_ON = 1,
+};
+
 const extern bool FLASH_OFF;
 const extern bool FLASH_ON;
 
@@ -70,7 +75,7 @@ class ULPFlash : public Component, public EntityBase {
   void set_interval(uint32_t interval) { interval_ = interval; }
   void set_pulse_width(FlashPulseWidth width) { pulse_width_ = width; }
   void set_init_state(FlashInitState init_state) { init_state_ = init_state; }
-
+  void set_pin_invert(FlashPinInvert invert) { pin_invert_ = invert; }
   bool flash_state;
 
   ULPFlashCall make_call();
@@ -84,15 +89,19 @@ class ULPFlash : public Component, public EntityBase {
    * @param save Whether to save the updated values in RTC area.
    */
   void publish_state(bool save = true);
+  // methods to re-connect and disconnect the led pin so can be used by other components
+  void reconnect_led_pin();
+  void disconnect_led_pin();
 
  protected:
   InternalGPIOPin *pin_{nullptr};
   uint32_t interval_{1000};  // default 1s
   uint32_t last_toggle_{0};
   bool state_{false};
-  int rtc_bit_{-1};                                             // store computed bit here
-  FlashPulseWidth pulse_width_{FlashPulseWidth::NARROW};        // default is about 8ms
-  FlashInitState init_state_{FlashInitState::FLASH_INIT_LAST};  // default is to restore from rtc
+  int rtc_bit_{-1};                                                 // store computed bit here
+  FlashPulseWidth pulse_width_{FlashPulseWidth::NARROW};            // default is about 8ms
+  FlashInitState init_state_{FlashInitState::FLASH_INIT_LAST};      // default is to restore from rtc
+  FlashPinInvert pin_invert_{FlashPinInvert::FLASH_PIN_INVERT_ON};  // default is inverted
   friend ULPFlashCall;
   optional<ULPFlashRestoreState> restore_state_();
   CallbackManager<void()> state_callback_{};
