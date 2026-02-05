@@ -103,12 +103,14 @@ void ULPFlashCall::perform() {
   ESP_LOGD(TAG, "ULPFlash command set to %s", LOG_STR_ARG(flash_command_to_str(this->flash_state_)));
   if (this->flash_state_ == FLASH_ON) {
     // reconnect the led pin in case it was disconnected
-    this->parent_->reconnect_led_pin();
+    // **TBD** does not behave well currently
+    //this->parent_->reconnect_led_pin();
     // Start ULP timer
     ulp_timer_resume();
   } else {
     // disconnect the led pin to allow other components to use it
-    this->parent_->disconnect_led_pin();
+    // **TBD** does not behave well currently
+    //this->parent_->disconnect_led_pin();
     // Stop ULP timer
     ulp_timer_stop();
   }
