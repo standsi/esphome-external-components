@@ -306,7 +306,7 @@ bool MLX90393Cls::enable_woc_mode(uint16_t woxyThreshold, uint16_t wozThreshold,
     return false;
   }
   // ** for woc operation reduce the conversion rate by setting burst data rate reg
-  status = this->mlx_.writeRegister(MLX90393_BURST_DATA_RATE_REG, MLX90393_BURST_DATA_RATE_500ms);
+  status = this->mlx_.writeRegister(MLX90393_BURST_DATA_RATE_REG, MLX90393_BURST_DATA_RATE_666ms);
   if (this->mlx_.checkStatus(status) != MLX90393::STATUS_OK) {
     ESP_LOGE(TAG, "failed to set data rate during enable WOC mode with error %u", status);
     // this->mark_failed();
