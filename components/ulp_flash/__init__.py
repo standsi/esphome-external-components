@@ -33,6 +33,13 @@ INIT_STATES = {
     "last": flash_init_state_enum.FLASH_INIT_LAST,
 }
 
+# add inverted pin option
+flash_pin_invert_enum = ulp_flash_ns.enum("FlashPinInvert", is_class=True)
+PIN_INVERTS = {
+    "yes": flash_pin_invert_enum.FLASH_PIN_INVERT_ON,
+    "no": flash_pin_invert_enum.FLASH_PIN_INVERT_OFF,
+}
+
 # actions
 OnAction = ulp_flash_ns.class_("OnAction", automation.Action)
 OffAction = ulp_flash_ns.class_("OffAction", automation.Action)
@@ -48,6 +55,10 @@ CONFIG_SCHEMA = cv.Schema(
         ),
         cv.Optional("init_state", default="last"): cv.enum(
             INIT_STATES,
+            lower=True,
+        ),
+        cv.Optional("pin_invert", default="yes"): cv.enum(
+            PIN_INVERTS,
             lower=True,
         ),
     }
@@ -80,3 +91,4 @@ async def to_code(config):
     cg.add(var.set_interval(config["interval"]))
     cg.add(var.set_pulse_width(config["pulse_width"]))
     cg.add(var.set_init_state(config["init_state"]))
+    cg.add(var.set_pin_invert(config["pin_invert"]))
