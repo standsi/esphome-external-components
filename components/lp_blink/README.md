@@ -8,7 +8,7 @@ Parameters for the program including the gpio pin (must be an RTC pin), the puls
 
 ### Sample power usage on ESP32C6
 * For a 17ms pulse into high impedence the power consumption has been measured at an average of about 35.2 microamps in a 1 second period.
-* With a standard 3mm red LED and a 150 ohm current limit resistor attached to the pin a 17ms pulse consumes about 127 microamps average over a 1 second interval.  The LED current peaks at a little less than 4 milliamp which the C6 can easily handle.  The 17ms pulse is bright enough to be seen across a large room.
+* With a standard 3mm red LED and a 150 ohm current limit resistor attached to the pin a 17ms pulse consumes about 127 microamps average over a 1 second interval (this was with the LED cathode grounded).  The LED current peaks at a little less than 4 milliamp which the C6 can easily handle either in a common anode or cathode wiring.  The 17ms pulse is bright enough to be seen across a large room.
 
 ## yaml template for esphome
 
