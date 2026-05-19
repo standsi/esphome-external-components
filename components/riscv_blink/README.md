@@ -126,6 +126,9 @@ interval:
 
 ```
 
+### Modifying the component using custom ESPHome development
+See the [README-dev.md](README-dev.md) file for details.
+
 ## note on the ulp risc v code
 
 The runtime code is in this component, but the generated ULP artifacts are  placeholders that are filled by a powershell utility. To finish the component:

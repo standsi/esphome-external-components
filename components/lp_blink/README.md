@@ -87,3 +87,6 @@ switch:
       lambda: |-
         id(lp_blink_component).stop_blink();
 ```
+
+### Modifying the component using custom ESPHome development
+See the [README-dev.md](README-dev.md) file for details.
