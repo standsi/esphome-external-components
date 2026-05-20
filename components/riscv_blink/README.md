@@ -4,7 +4,7 @@ This component targets the ESP32-S2 and ESP32-S3 ULP RISC-V coprocessor and offe
 
 **https://github.com/standsi/ULPBlinkEspHomeDev**
 
-Parameters for the program including the gpio pin (must be an RTC pin), the pulse duration and the pulse frequency (delay) are passed through RTC shared memory.  The fixed addresses for the parameter locations are embedded in the artifacts files listed above.  Instructions for updating this file are also included in the repo given above.
+Parameters for the program including the gpio pin (must be an RTC pin), the pulse duration, the pulse frequency (delay) and whether to invert the state of the pin are passed through RTC shared memory.  The fixed addresses for the parameter locations are embedded in the artifacts files listed above.  Instructions for updating this file are also included in the repo given above.
 
 ## sample yaml template for esphome
 
