@@ -2,9 +2,13 @@
 
 This component offers a low power way of pulsing a gpio on the esp32c6 for both awake and sleep modes.  The lp core c program is compiled separately with the assembly byte stream embedded in `ulp_main_binary.h`.  The source for the lp core program along with a script to rebuild this file are in the repo:
 
-**TBD**
+**https://github.com/standsi/ULPBlinkEspHomeDev**
 
-Parameters for the program including the gpio pin (must be an RTC pin), the pulse duration and the pulse frequency (delay) are passed through RTC shared memory.  The fixed addresses for the parameter locations are embedded in `ulp_main_shared.h`.  Instructions for updating this file are also included in the repo given above.
+Parameters for the program including the gpio pin (must be an RTC pin), the pulse duration, the pulse frequency (delay) and whether to invert the pin state are passed through RTC shared memory.  The fixed addresses for the parameter locations are embedded in `ulp_main_shared.h`.  Instructions for updating this file are also included in the repo given above.
+
+### Sample power usage on ESP32C6
+* For a 17ms high-state pulse into high impedence the power consumption has been measured at an average of about 35.2 microamps in a 1 second period.
+* With a standard 3mm red LED and a 150 ohm current limit resistor attached to the pin a 17ms pulse consumes about 127 microamps average over a 1 second interval (this was with the LED cathode grounded).  The LED current peaks at a little less than 4 milliamp which the C6 can easily handle either in a common anode or cathode wiring.  The 17ms pulse is bright enough to be seen across a large room.
 
 ## yaml template for esphome
 
@@ -83,3 +87,6 @@ switch:
       lambda: |-
         id(lp_blink_component).stop_blink();
 ```
+
+### Modifying the component using custom ESPHome development
+See the [README-dev.md](README-dev.md) file for details.

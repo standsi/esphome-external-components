@@ -2,9 +2,9 @@
 
 This component targets the ESP32-S2 and ESP32-S3 ULP RISC-V coprocessor and offers a low power way of pulsing a gpio for both awake and sleep modes.  The risc v  core c program is compiled separately with the assembly byte stream embedded in `ulp_artifacts_esp32s2.h` or `ulp_artifacts_esp32s3.h`.  The source for the risc v core program along with a script to rebuild these files are in the repo:
 
-**TBD**
+**https://github.com/standsi/ULPBlinkEspHomeDev**
 
-Parameters for the program including the gpio pin (must be an RTC pin), the pulse duration and the pulse frequency (delay) are passed through RTC shared memory.  The fixed addresses for the parameter locations are embedded in the artifacts files listed above.  Instructions for updating this file are also included in the repo given above.
+Parameters for the program including the gpio pin (must be an RTC pin), the pulse duration, the pulse frequency (delay) and whether to invert the state of the pin are passed through RTC shared memory.  The fixed addresses for the parameter locations are embedded in the artifacts files listed above.  Instructions for updating this file are also included in the repo given above.
 
 ## sample yaml template for esphome
 
@@ -125,6 +125,9 @@ interval:
             logger.log: "riscv blink is NOT running"
 
 ```
+
+### Modifying the component using custom ESPHome development
+See the [README-dev.md](README-dev.md) file for details.
 
 ## note on the ulp risc v code
 
