@@ -6,6 +6,11 @@ This component targets the ESP32-S2 and ESP32-S3 ULP RISC-V coprocessor and offe
 
 Parameters for the program including the gpio pin (must be an RTC pin), the pulse duration, the pulse frequency (delay) and whether to invert the state of the pin are passed through RTC shared memory.  The fixed addresses for the parameter locations are embedded in the artifacts files listed above.  Instructions for updating this file are also included in the repo given above.
 
+### Sample power usage on ESP32S2
+* For a 17ms high-state pulse into high impedence the power consumption has been measured at an average of about 87.6 microamps in a 1 second period.
+* With a standard 3mm red LED and a 150 ohm current limit resistor attached to the pin a 17ms pulse consumes about 207 microamps average over a 1 second interval (this was with the LED cathode grounded).  The LED current peaks at a little less than 5 milliamps which the S2 can easily handle either in a common anode or cathode wiring.  The 17ms pulse is bright enough to be seen across a large room.
+* NOTE: the S2 is not considered one of the lower power versions of the ESP32 line, as can be seen from the measurements above.  However, the WIFI operation is fairly efficent compared to, for example, the C6, when communicating to the Home Assistant native API.  The S2 peaks between 70 and 130mA wheras the C6 peaks between 120 and 260mA.  So if your esphome project needs to communicate frequently with HA between sleep cycles the S2 may be just as efficient in power usage. 
+
 ## sample yaml template for esphome
 
 ```yaml
